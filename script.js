@@ -51,34 +51,29 @@ setInterval(() => {
     let day_night = "AM";
     let TZ = timezone.value;
   let date = new Date();
-    let hours = date.getUTCHours();
-    console.log(hours);
-    if (hours > 12 && mode == 12) {
-        hours -= 12;
-        day_night = "PM";
-    }
-   
+    let hours = date.getUTCHours();  
     hours += Math.floor(TimeZoneData[TZ]);
+    if(hours > 24){
+      hours = 0 + hours - 24;
+    }
     let minutes = date.getUTCMinutes();
     let minutestoadd = (TimeZoneData[TZ] - Math.floor(TimeZoneData[TZ]));
-    if (minutestoadd > 0) {
-        minutestoadd = 30;
-    }
-    minutes += minutestoadd;
-    if (minutes > 60) {
-        hours += 1;
-        minutes -= 60;
-    }
     let seconds = date.getUTCSeconds();
-    
     let millisec = Math.floor(date.getUTCMilliseconds() / 10).toFixed(0);
-    
-    
-    if (hours > 12  && mode == 12) {
-        day_night = "AM";
-        hours = hours - 12;
+    if(mode == 12){
+    if(hours > 11){
+      day_night = "PM";
+      hours = hours - 12;
     }
-    
+    else{
+      day_night = "AM";
+    }
+
+    if(hours == 0){
+      hours = 12;
+    }
+   }
+
   if (seconds < 10) {
     seconds = "0" + seconds;
   }
@@ -89,8 +84,9 @@ setInterval(() => {
     minutes = "0" + minutes;
   }
   if (hours < 10) {
-    hours = "0" + Math.abs( hours);
+    hours = "0" + Math.abs(hours);
   }
+
   if(mode == 12){
   time.textContent =
     hours + ":" + minutes + ":" + seconds + ":" + millisec + " " + day_night;
