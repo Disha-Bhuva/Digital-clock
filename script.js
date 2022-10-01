@@ -31,10 +31,20 @@ const TimeZoneData = {
   BET: -3,
   CAT: -1,
 };
+
 let timezone = document.getElementById("TimeZone");
 for (key in TimeZoneData) {
     timezone.innerHTML += `<option value="${key}">${key}</option>`;
 }
+
+var mode = 12;
+document.getElementById('mode').addEventListener("change", function(){
+  if(this.value == 'a'){
+    mode = 12;
+  }else{
+    mode = 24;
+  }
+})
 
 setInterval(() => {
     const time = document.querySelector(".display #time");
@@ -43,7 +53,7 @@ setInterval(() => {
   let date = new Date();
     let hours = date.getUTCHours();
     console.log(hours);
-    if (hours > 12) {
+    if (hours > 12 && mode == 12) {
         hours -= 12;
         day_night = "PM";
     }
@@ -64,7 +74,7 @@ setInterval(() => {
     let millisec = Math.floor(date.getUTCMilliseconds() / 10).toFixed(0);
     
     
-    if (hours > 12) {
+    if (hours > 12  && mode == 12) {
         day_night = "AM";
         hours = hours - 12;
     }
@@ -81,6 +91,11 @@ setInterval(() => {
   if (hours < 10) {
     hours = "0" + Math.abs( hours);
   }
+  if(mode == 12){
   time.textContent =
     hours + ":" + minutes + ":" + seconds + ":" + millisec + " " + day_night;
+  }else{
+    time.textContent =
+    hours + ":" + minutes + ":" + seconds + ":" + millisec;
+  }
 });
