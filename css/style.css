@@ -4,16 +4,15 @@
   font-family: 'Poppins', sans-serif;
 }
 html,body{
-  display: grid;
-  height: 100%;
-  place-items: center;
- background: #000;
+  background: #000;
+  margin: 0px;
+  overflow: hidden;
 }
 .wrapper{
   height: 100px;
   width: 420px;
   position: relative;
-  border: 6px solid orange;
+  border: 8px double orange;
   border-radius: 10px;
   cursor: default;
   animation: animate 1.5s linear infinite;
@@ -41,8 +40,20 @@ html,body{
   -webkit-text-fill-color: transparent;
   animation: animate 1.5s linear infinite;
 }
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 @keyframes animate {
   100%{
     filter: hue-rotate(360deg);
   }
+}
+#TimeZone{
+  border-color: white;
+  background-color: black;
+  color: white;
 }
